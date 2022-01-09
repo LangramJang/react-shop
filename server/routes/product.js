@@ -102,4 +102,23 @@ router.post('/products', (req, res) => {
     }
 });
 
+// SELECT product detail
+router.get('/products_by_id', (req, res) => {
+
+    // GET을 이용해서 받아왔으므로 req.query를 사용하여 파라미터 획득
+    let type = req.query.type;
+    let productId = req.query.id;
+    
+    // ProductId 사용하여 정보를 획득
+    Product
+    .find({_id: productId})
+    .populate('writer')
+    .exec((err, product) => {
+        if(err) {
+            return res.status(400).send(err);
+        }
+        return res.status(200).send({success:true, product});
+    });
+});
+
 module.exports = router;

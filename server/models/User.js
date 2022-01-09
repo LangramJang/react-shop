@@ -19,18 +19,26 @@ const userSchema = mongoose.Schema({
         minglength: 5
     },
     lastname: {
-        type:String,
+        type: String,
         maxlength: 50
     },
-    role : {
-        type:Number,
+    role: {
+        type: Number,
         default: 0 
     },
+    cart: {
+        type: Array,
+        default: []
+    },
+    history: {
+        type: Array,
+        default: []
+    },
     image: String,
-    token : {
+    token: {
         type: String,
     },
-    tokenExp :{
+    tokenExp:{
         type: Number
     }
 })
