@@ -102,22 +102,29 @@ router.post('/products', (req, res) => {
     }
 });
 
-// SELECT product detail
+// SELECT product detail (type=single / array)
 router.get('/products_by_id', (req, res) => {
 
     // GET을 이용해서 받아왔으므로 req.query를 사용하여 파라미터 획득
     let type = req.query.type;
-    let productId = req.query.id;
-    
+    let productIds = req.query.id;
+    if(type === 'array') { // 카트 목록을 가져올 경우 array로 처리
+        // string으로 받아온 데이터를 ','로 나누어 array처리
+        let ids = req.query.id.split(',');
+        productIds = ids.map(item => {
+            return item;
+        });
+    }
+
     // ProductId 사용하여 정보를 획득
     Product
-    .find({_id: productId})
+    .find({_id: { $in: productIds }})
     .populate('writer')
     .exec((err, product) => {
         if(err) {
             return res.status(400).send(err);
         }
-        return res.status(200).send({success:true, product});
+        return res.status(200).send(product);
     });
 });
 

@@ -18,6 +18,8 @@ router.get("/auth", auth, (req, res) => {
         lastname: req.user.lastname,
         role: req.user.role,
         image: req.user.image,
+        cart: req.user.cart,
+        history: req.user.history
     });
 });
 
@@ -70,52 +72,47 @@ router.get("/logout", auth, (req, res) => {
 
 // 카트 상품 추가
 router.post("/addToCart", auth, (req, res) => {
-
     // req.user === user <- auth 미들웨어를 사용하여 이미 검증됨
     User.findOne({_id: req.user._id}, (err, userInfo) => {
-
         let duplicate = false; // 중복 데이터 확인
 
-        userInfo.cart.forEach((item) => {    
+        userInfo.cart.forEach((item) => { // 해당 상품이 카트에 존재하는지 파악
             if(item.id === req.body.productId) {
                 duplicate = true;
             }
-
-            if(duplicate) { // 1. 담으려는 ProductId가 존재하는가
-                User.findOneAndUpdate(
-                    { _id : req.user._id, "cart.id": req.body.productId},
-                    { $inc: { "cart.$.quantity": 1 }}, // 해당 카트ID의 수량을 1 증가시킨다
-                    { new : true } // 콜렉션 UPDATE 후 성공/실패 확인
-                , (err, userInfo) => {
-                    if(err) {
-                        return res.status(200).json({success:false, err})
-                    }
-                    return res.status(200).send(userInfo.cart);
-                });
-            }
-            else { // 2. 담으려는 ProductId가 존재하지 않는가
-                User.findOneAndUpdate(
-                    { _id : req.user._id},
-                    { $push: { // 새로운 카트 품목을 넣어준다
-                        cart: {
-                            id: req.body.productId,
-                            quantity: 1,
-                            date: Date.now()
-                        }
-                    }},
-                    { new : true } // 콜렉션 UPDATE 후 성공/실패 확인
-                , (err, userInfo) => {
-                    if(err) {
-                        return res.status(200).json({success:false, err})
-                    }
-                    return res.status(200).send(userInfo.cart);
-                });
-            }
-        
         });
+
+        if(duplicate) { // 1. 담으려는 ProductId가 존재하는가
+            User.findOneAndUpdate(
+                { _id : req.user._id, "cart.id": req.body.productId},
+                { $inc: { "cart.$.quantity": 1 }}, // 해당 카트ID의 수량을 1 증가시킨다
+                { new : true } // 콜렉션 UPDATE 후 성공/실패 확인
+            , (err, userInfo) => {
+                if(err) {
+                    return res.status(200).json({success:false, err})
+                }
+                res.status(200).send(userInfo.cart);
+            });
+        }
+        else { // 2. 담으려는 ProductId가 존재하지 않는가
+            User.findOneAndUpdate(
+                { _id : req.user._id},
+                { $push: { // 새로운 카트 품목을 넣어준다
+                    cart: {
+                        id: req.body.productId,
+                        quantity: 1,
+                        date: Date.now()
+                    }
+                }},
+                { new : true } // 콜렉션 UPDATE 후 성공/실패 확인
+            , (err, userInfo) => {
+                if(err) {
+                    return res.status(200).json({success:false, err});
+                }
+                res.status(200).send(userInfo.cart);
+            });
+        }
     });
-
-
 });
 
 module.exports = router;

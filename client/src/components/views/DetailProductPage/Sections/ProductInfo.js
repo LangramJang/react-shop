@@ -11,7 +11,7 @@ function ProductInfo(props) {
     // 카트 추가 핸들러
     const clickHandler = () => {
         // 필요한 정보를 Cart Field로 넣어준다
-        dispatch(addToCart);
+        dispatch(addToCart(props.detail._id));
     }
 
     return (
@@ -29,7 +29,7 @@ function ProductInfo(props) {
             <br />
 
             <div style={{ display:'flex', justifyContent:'center' }}>
-                <Button size="large" shape="round" type="danger">
+                <Button size="large" shape="round" type="danger" onClick={clickHandler}>
                     Add to Cart
                 </Button>
             </div>
