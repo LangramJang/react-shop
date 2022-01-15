@@ -1,19 +1,20 @@
 import { Carousel } from 'antd';
 import React from 'react';
+import Styled from 'styled-components';
 
 function ImageCarousel(props) {
     const images = [...props.images];
+    const CardImage = Styled.img`
+        height: 150px;
+        width: auto
+    `;
+
     return (
-        <div>
-            <Carousel autoplay>
-                {images.map((image,index) => (
-                    <img key={index}
-                        height="150px"
-                        style={{width:'auto'}}
-                        src={`http://localhost:5000/${image}`} />
-                ))}
-            </Carousel>
-        </div>
+        <Carousel autoplay>
+            {images.map((image,index) => (
+                <CardImage key={index} src={`http://localhost:5000/${image}`} />
+            ))}
+        </Carousel>
     )
 }
 

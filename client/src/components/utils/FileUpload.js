@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { Icon } from 'antd';
 import axios from 'axios';
+import Styled from 'styled-components';
 
 function FileUpload(props) {
     
@@ -23,13 +24,12 @@ function FileUpload(props) {
                     // console.log(response.data);
                     setImages([...images, response.data.filePath]);
                     props.refreshFunction([...images, response.data.filePath]);
-                } else {
+                } 
+                else {
                     alert("파일 저장에 실패하였습니다.\n다시 시도해주시기 바랍니다.");
                 }
             })
-            .catch(e => {
-                alert("오류가 발생하였습니다!\n다시 시도해주시 바랍니다.");
-            })
+            .catch(e => alert("오류가 발생하였습니다!\n다시 시도해주시 바랍니다."))
     }
 
     // 파일 삭제 핸들러
@@ -43,37 +43,56 @@ function FileUpload(props) {
         props.refreshFunction(newImages);
     }
 
+    const Container = Styled.div`
+        display: flex;
+        justify-content: space-between;
+    `;
+
+    const ItemInsertDiv = Styled.section`
+        display: flex;
+        width: 300px;
+        height: 240px;
+        border: 1px solid lightgray;
+        align-items: center;
+        justify-content: center;
+    `;
+
+    const ItemListDiv = Styled.div`
+        display: flex;
+        width: 350px;
+        height: 240px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        border: 1px solid lightgray;
+    `
+
+    const ItemImage = Styled.div`
+        min-width: 300px;
+        width: 300px;
+        height: 240px;
+        margin: 0 1px;
+    `;
+
     return (
-        <div style={{display: 'flex', justifyContent:'space-between'}}>
+        <Container>
             <Dropzone onDrop={ dropHandler }>
-                {({ getRootProps, getInputProps}) => (
-                    <section>
-                        <div 
-                            style={{
-                                width: '300px', height: '240px', border: '1px solid lightgray',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center'
-                            }}
-                            {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <Icon type="plus" style={{ fontSize: '3rem' }} />
-                        </div>
-                    </section>
+                {({ getRootProps, getInputProps }) => (
+                    <ItemInsertDiv {...getRootProps()} >
+                        <input {...getInputProps()} />
+                        <Icon type="plus" style={{ fontSize: '3rem'}} />
+                    </ItemInsertDiv>
                 )}
             </Dropzone>
-
-            <div style={{ 
-                display:'flex', width:'350px', height: '240px', overflowX:'scroll', overflowY:'hidden',
-                border: '1px solid lightgray', }}>
+            <ItemListDiv>
                 {images.map((image, index) => (
-                    <div key={index}>
-                        <img style={{ minWidth: '300px', width: '300px', height: '240px', margin: '0 1px'}} 
-                            onClick={() => deleteHandler(image)}
-                            src={`http://localhost:5000/${image}`}
-                        />
-                    </div>
+                    <ItemImage 
+                        key={index}
+                        onClick={() => deleteHandler(image)}
+                        src={`http://localhost:5000/${image}`}
+                    />
                 ))}
-            </div>
-        </div>
+            </ItemListDiv>
+        </Container>
     );
 }
 

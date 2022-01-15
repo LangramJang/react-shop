@@ -1,9 +1,12 @@
 import { Button, Empty, Result } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import Styled from 'styled-components';
 import { getCartItems, removeCartItem, onSuccessBuy } from '../../../_actions/user_actions';
 import Paypal from '../../utils/Paypal';
 import UserCardBlock from './Sections/UserCardBlock';
+import message from '../../../messages/ko';
 
 function CartPage(props) {
     const dispatch = useDispatch();
@@ -59,7 +62,12 @@ function CartPage(props) {
                 setShowSuccess(true);
             }
         });
-    }
+    };
+
+    const CartContainer = Styled.div`
+        width: 85px;
+        margin: 3rem auto;
+    `;
 
     return (
         <div style={{ width:'85%', margin:'3rem auto' }}>
@@ -85,8 +93,13 @@ function CartPage(props) {
                         /> 
                     :   <Empty 
                             style={{marginTop: '20px'}}
-                            description={"카트에 상품이 비어있습니다."}
-                         />
+                            description={"장바구니에 상품이 비어있습니다."}
+                            children={
+                                <Button>
+                                    <Link to="/">홈으로 이동하기</Link>
+                                </Button>
+                            }
+                        />
             }
         </div>
     );

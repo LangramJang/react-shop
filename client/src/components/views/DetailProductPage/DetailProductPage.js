@@ -13,17 +13,7 @@ function DetailProductPage(props) {
     useEffect(() => {
         axios
         .get(`/api/product/products_by_id?id=${productId}&type=single`)
-        .then(response => {
-            setProduct(response.data[0]);
-            // process route -> response success 삭제에 의한 주석처리
-            // if(response.data.success) {
-            //     // console.log(response.data);
-            //     setProduct(response.data.product[0]);
-            // }
-            // else {
-            //     alert("제품의 정보를 가져오지 못하였습니다.\n잠시 후 다시 시도해주시기 바랍니다.");
-            // }
-        })
+        .then(response => setProduct(response.data[0]))
         .catch(err => alert(err))
     }, []);
     
