@@ -6,11 +6,12 @@ function ImageCarousel(props) {
     const images = [...props.images];
     const CardImage = Styled.img`
         height: 150px;
-        width: auto
+        width: auto;
+        border: 1px solid lightgray;
     `;
 
     return (
-        <Carousel autoplay>
+        <Carousel autoplay style={{padding: '10px' }}>
             {images.map((image,index) => (
                 <CardImage key={index} src={`http://localhost:5000/${image}`} />
             ))}

@@ -18,7 +18,7 @@ function RightMenu(props) {
         });
     };
 
-    if (user.userData && !user.userData.isAuth) {
+    if (user.userData && !user.userData.isAuth) { // 정보 없는 경우 
         return (
             <Menu mode={props.mode}>
                 <Menu.Item key="mail">

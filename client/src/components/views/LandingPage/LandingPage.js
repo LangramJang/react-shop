@@ -33,7 +33,7 @@ function LandingPage() {
             <Col lg={6} md={8} xs={24} key={index}>
                 <a href={`/product/${product._id}`}>
                     <Card cover={
-                            <ImageCarousel images={product.images} />
+                        <ImageCarousel images={product.images}  />
                     }>
                         <Meta 
                             title={product.name}
@@ -140,9 +140,6 @@ function LandingPage() {
     // 렌더링
     return (
         <div style={{width:'75%', margin: '3rem auto'}}>
-            <div style={{textAlign: 'center'}}>
-                <h2>Let's Travel Anywhere<Icon type="rocket" /></h2>
-            </div>
 
             {/* Filter */}
             <Row gutter={[16, 16]}>

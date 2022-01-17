@@ -19,16 +19,13 @@ function RadioBox(props) {
     }
 
     return (
-        <div>
-            <Collapse defaultActiveKey={['0']} >
-                <Panel header="Price" key="1">
-                    <RadioGroup onChange={handleChange} value={Value}>
-                        {renderRadioboxLists()}
-                    </RadioGroup>
-                </Panel>
-            </Collapse>
-        </div>
-        
+        <Collapse defaultActiveKey={['0']} >
+            <Panel header="Price" key="1">
+                <RadioGroup onChange={handleChange} value={Value}>
+                    {renderRadioboxLists()}
+                </RadioGroup>
+            </Panel>
+        </Collapse>
     )
 }
 

@@ -9,7 +9,7 @@ function ProductImage(props) {
 
             props.detail.images.map(item => {
                 images.push({
-                    original: `http://localhost:5000/${item}`,
+                    original : `http://localhost:5000/${item}`,
                     thumbnail: `http://localhost:5000/${item}`
                 });
             });
@@ -18,11 +18,7 @@ function ProductImage(props) {
     }, [props.detail]);
 
     return (
-        <div>
-            <ImageGallary 
-                items={Images}
-            />
-        </div>
+        <ImageGallary items={Images} />
     );
 }
 
