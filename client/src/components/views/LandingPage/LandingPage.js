@@ -62,7 +62,6 @@ function LandingPage() {
     const getProducts = (body) => {
         axios.post('/api/product/products', body) // 상품 목록 획득
             .then(response => {
-                console.log(response.data);
                 if(response.data.success) {
                     if(body.loadMore) {
                         setProducts([...Products, ...response.data.productInfo]);
@@ -136,6 +135,7 @@ function LandingPage() {
         
         getProducts(body);
     }
+    
 
     // 렌더링
     return (
@@ -143,11 +143,17 @@ function LandingPage() {
 
             {/* Filter */}
             <Row gutter={[16, 16]}>
-                <Col lg={12} xs={24}>
-                    <CheckBox list={continents} handleFilters={filter => handleFilters(filter, "continent")} />
+                <Col lg={12} xs={24}> {/* Continents */}
+                    <CheckBox 
+                        list={continents}
+                        handleFilters={filter => handleFilters(filter, "continent")}
+                    />
                 </Col>
-                <Col lg={12} xs={24}>
-                    <RadioBox list={price} handleFilters={filter => handleFilters(filter, "price")}  />
+                <Col lg={12} xs={24}> {/* Continents */}
+                    <RadioBox  
+                        list={price}
+                        handleFilters={filter => handleFilters(filter, "price")} 
+                    />
                 </Col>
             </Row>
 

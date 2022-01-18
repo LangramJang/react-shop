@@ -1,53 +1,91 @@
+import { Button, Drawer, Icon } from 'antd';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Styled from 'styled-components';
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
-import { Drawer, Button, Icon } from 'antd';
-import './Sections/Navbar.css';
 
 function NavBar() {
-  const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false);
 
-  const showDrawer = () => {
-    setVisible(true)
-  };
+    const showDrawer = () => setVisible(true);
+    const onClose = () => setVisible(false);
+    
+    const Navbar = Styled.nav`
+        position: fixed;
+        z-index: 5;
+        width: 100%;
+        padding: 0px 20px;
+        border-bottom: solid 1px #e8e8e8;
+        overflow: auto;
+        box-shadow: 0 0 30px #f3f1f1;
+        background-color: white;
+    `;
 
-  const onClose = () => {
-    setVisible(false)
-  };
+    const MenuLogo = Styled.div`
+        display: inline-block;
+        width: 150px;
+        float: left;
+        font-size: 20px;
+        margin: 7px;
+    `;
 
-  return (
-    <nav className="menu" style={{ position: 'fixed', zIndex: 5, width: '100%' }}>
-      <div className="menu__logo">
-        <a href="/">Logo</a>
-      </div>
-      <div className="menu__container">
-        <div className="menu_left">
-          <LeftMenu mode="horizontal" />
-        </div>
-        <div className="menu_rigth">
-          <RightMenu mode="horizontal" />
-        </div>
-        <Button
-          className="menu__mobile-button"
-          type="primary"
-          onClick={showDrawer}
-        >
-          <Icon type="align-right" />
-        </Button>
-        <Drawer
-          title="Basic Drawer"
-          placement="right"
-          className="menu_drawer"
-          closable={false}
-          onClose={onClose}
-          visible={visible}
-        >
-          <LeftMenu mode="inline" />
-          <RightMenu mode="inline" />
-        </Drawer>
-      </div>
-    </nav>
-  )
+    const MenuContainer = Styled.div``;
+    const Left = Styled.div`float: left;`;
+    const Right = Styled.div`
+        float: right;
+
+        @media (max-width: 767px) {
+            display: none !important;
+        }
+    `;
+
+    const MenuMobileButton = Styled.button`
+        float: right;
+        width: 68px;
+        height: 32px;
+        padding: 6px;
+        margin-top: 8px;
+        display: none !important; /* use of important to overwrite ant-btn */
+        // background: #3e91f7;
+
+        @media (max-width: 767px) {
+            display: inline-block !important;
+        }
+    `;
+
+    return (
+        <Navbar>
+            <MenuLogo>
+                <Link to='/' style={{ fontSize:'24px' }}>LOGO</Link>
+            </MenuLogo>
+            <MenuContainer>
+                <Left>
+                    <LeftMenu mode="horizontal" />
+                </Left>
+                <Right>
+                    <RightMenu mode="horizontal" />
+                </Right>
+
+                <MenuMobileButton
+                    type="primary"
+                    onClick={showDrawer}
+                >
+                    <Icon type="align-right" />
+                </MenuMobileButton>
+                <Drawer
+                    title="Basic Drawer"
+                    placement="right"
+                    closable={false}
+                    onClose={onClose}
+                    visible={visible}
+                >
+                    <LeftMenu mode="inline" />
+                    <RightMenu mode="inline" />
+                </Drawer>
+            </MenuContainer>
+        </Navbar>
+    )
 }
 
-export default NavBar
+export default NavBar;

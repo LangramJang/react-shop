@@ -11,6 +11,7 @@ import {
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
 
+/* 유저등록 */
 export function registerUser(dataToSubmit){
     const request = axios.post(`${USER_SERVER}/register`,dataToSubmit)
         .then(response => response.data);
@@ -21,6 +22,7 @@ export function registerUser(dataToSubmit){
     }
 }
 
+/* 로그인 */
 export function loginUser(dataToSubmit){
     const request = axios.post(`${USER_SERVER}/login`,dataToSubmit)
                 .then(response => response.data);
@@ -31,6 +33,7 @@ export function loginUser(dataToSubmit){
     }
 }
 
+/* 유저 인증 */
 export function auth(){
     const request = axios.get(`${USER_SERVER}/auth`)
     .then(response => response.data);
@@ -41,6 +44,7 @@ export function auth(){
     }
 }
 
+/* 로그아웃 */
 export function logoutUser(){
     const request = axios.get(`${USER_SERVER}/logout`)
     .then(response => response.data);
@@ -51,6 +55,7 @@ export function logoutUser(){
     }
 }
 
+/* 카트 아이템 추가 */
 export function addToCart(id){
     let body = {
         productId: id
@@ -65,6 +70,7 @@ export function addToCart(id){
     });
 }
 
+/* 카트 아이템 조회 */
 export function getCartItems(cartItems, userCart) {
     const request = axios.get(`/api/product/products_by_id?id=${cartItems}&type=array`)
         .then(response => { //
@@ -88,8 +94,8 @@ export function getCartItems(cartItems, userCart) {
     });
 }
 
+/* 카트 아이템 삭제 */
 export function removeCartItem(productId) {
-
     const request = axios.get(`/api/users/removeFromCart?id=${productId}`)
         .then(response => {
 
@@ -112,7 +118,7 @@ export function removeCartItem(productId) {
     });
 }
 
-
+/* 결제 완료 */
 export function onSuccessBuy(data) {
     const request = axios.post(`/api/users/successBy`, data)
         .then(response => response.data);

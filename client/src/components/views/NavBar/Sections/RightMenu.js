@@ -3,8 +3,9 @@ import React from 'react';
 import { Badge, Icon, Menu } from 'antd';
 import axios from 'axios';
 import { USER_SERVER } from '../../../Config';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import Styled from 'styled-components';
 
 function RightMenu(props) {
     const user = useSelector(state => state.user);
@@ -18,14 +19,16 @@ function RightMenu(props) {
         });
     };
 
+    const LogoutButton = Styled.a``;
+
     if (user.userData && !user.userData.isAuth) { // 정보 없는 경우 
         return (
             <Menu mode={props.mode}>
                 <Menu.Item key="mail">
-                    <a href="/login">Signin</a>
+                    <Link to="/login">로그인</Link>
                 </Menu.Item>
                 <Menu.Item key="app">
-                    <a href="/register">Signup</a>
+                    <Link to="/register">회원가입</Link>
                 </Menu.Item>
             </Menu>
         )
@@ -33,20 +36,20 @@ function RightMenu(props) {
         return (
             <Menu mode={props.mode}>
                 <Menu.Item key="history">
-                    <a href="/history">History</a>
+                    <Link to="/history">구매내역</Link>
                 </Menu.Item>
                 <Menu.Item key="upload">
-                    <a href="/product/upload">Upload</a>
+                    <Link to="/product/upload">상품 업로드</Link>
                 </Menu.Item>
-                <Menu.Item key="cart" style={{ paddingBottom:3 }}>
+                <Menu.Item key="cart" style={{ lineHeight:'2.3rem' }} >
                     <Badge count={ user.userData && user.userData.cart.length }>
-                        <a href="/user/cart" className="head-example" style={{marginRight:-22, color:"#667777" }}>
-                            <Icon type="shopping-cart" style={{ fontSize:30, marginBottom:3 }} />
-                        </a>
+                        <Link to="/user/cart" style={{marginRight:-12, color:"#667777"}}>
+                            <Icon type="shopping-cart" style={{ fontSize:25, marginBottom:'-5px' }} />
+                        </Link>
                     </Badge>
                 </Menu.Item>
                 <Menu.Item key="logout">
-                    <a onClick={logoutHandler}>Logout</a>
+                    <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
                 </Menu.Item>
             </Menu>
         )

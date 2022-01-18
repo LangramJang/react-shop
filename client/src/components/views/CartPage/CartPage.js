@@ -65,17 +65,16 @@ function CartPage(props) {
     };
 
     const CartContainer = Styled.div`
-        width: 85px;
+        width: 85%;
         margin: 3rem auto;
     `;
 
+
     return (
-        <div style={{ width:'85%', margin:'3rem auto' }}>
-            <h1> My Cart</h1>
-            
+        <CartContainer>
             {
                 ShowTotal 
-                ?   <div style={{ marginTop: '3rem' }}>
+                ?   <>
                         <UserCardBlock 
                             products={props.user.cartDetail}
                             removeItem={removeFromCart}
@@ -85,23 +84,21 @@ function CartPage(props) {
                             total={Total}
                             onSuccess={transactionSuccess}
                         />
-                    </div> 
+                    </> 
                 :   ShowSuccess
                     ?   <Result 
                             status="success"
-                            title="결제가 정상적으로 완료되었습니다! (테스트)"
+                            title={message.cartpage.success}
                         /> 
                     :   <Empty 
-                            style={{marginTop: '20px'}}
-                            description={"장바구니에 상품이 비어있습니다."}
-                            children={
-                                <Button>
-                                    <Link to="/">홈으로 이동하기</Link>
-                                </Button>
-                            }
+                            // style={{marginTop: '20px'}}
+                            description={message.cartpage.empty}
                         />
             }
-        </div>
+            <button>
+                <Link to="/">홈으로 이동하기</Link>
+            </button>
+        </CartContainer>
     );
 }
 

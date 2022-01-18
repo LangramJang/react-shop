@@ -18,11 +18,9 @@ import HistoryPage from './views/HistoryPage/HistoryPage';
 
 function App() {
     return (
-        <Suspense fallback={
-            (
+        <Suspense fallback={(
                 <div>Loading...</div>
-            )
-        }>
+            )}>
             <NavBar/>
             <div style={
                 {

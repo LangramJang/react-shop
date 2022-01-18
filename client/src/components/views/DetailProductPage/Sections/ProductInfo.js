@@ -15,18 +15,8 @@ function ProductInfo(props) {
     
     // Styled
     const AddToCart = Styled.button`
-        display: flex;
-        justify-content: center;
-        padding-top: 4px;
-        margin-top: 50px;
-        border-radius: 15px; 
-        width: 120px;
-        height: 30px;
-        border: none;
         background-color: red;
-        text-align: center;
         color: white;
-        margin: 80px auto;
     `;
 
     return (

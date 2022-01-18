@@ -1,4 +1,4 @@
 export function toPriceFormat(num) {
-    return new Number(num).toLocaleString("ko-kr");
+    return (num*1).toLocaleString("ko-kr");
 }
 
