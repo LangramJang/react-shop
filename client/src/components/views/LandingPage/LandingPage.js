@@ -11,7 +11,7 @@ import SearchFeature from './Section/SearchFeature';
 function LandingPage() {
     const [Products, setProducts] = useState([]);
     const [Skip , setSkip] = useState(0);
-    const [Limit] = useState(6);
+    const [Limit] = useState(4);
     const [PostSize, setPostSize] = useState(0);
     const [Filters, setFilters] = useState({
         continents: [],

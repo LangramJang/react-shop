@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
         maxlength: 50
     },
     role: {
-        type: Number,
+        type: String,
         default: 0 
     },
     cart: {

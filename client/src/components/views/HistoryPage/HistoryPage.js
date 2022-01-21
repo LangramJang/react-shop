@@ -1,27 +1,23 @@
-import Axios from 'axios';
 import React from 'react';
-
+import Styled from 'styled-components';
+ 
 function HistoryPage(props) {
 
-    // Redux history 안에 데이터가 있으니 굳이 없어도 됨
-    // const [ History, setHistory ] = useState([]);
-    // useEffect(() => {
-    //     Axios.get('/api/users/history')
-    //     .then(response => {
-    //         if(response.data.success) {
-                
-    //         } else {
-    //             alert("구매내역 정보를 가져오는데 실패하였습니다.");
-    //         }
-    //     })
-    // });
+    const Container = Styled.div`
+        width: 80%;
+        margin: 3rem auto;
+    `;
+
+    const Title = Styled.h1`
+        
+    `;
 
     return (
-        <div style={{ width:'80%', margin: '3rem auto' }}>
+        <Container>
+            
             <div style={{ textAlign: 'center' }}>
                 <h1>History</h1>
             </div>
-            <br />
 
             <table>
                 <thead>
@@ -45,7 +41,7 @@ function HistoryPage(props) {
                     }
                 </tbody>
             </table>
-        </div>
+        </Container>
     )
 }
 
