@@ -18,7 +18,6 @@ function ProductImage(props) {
     }, [props.detail]);
 
     return (
-       
        <ImageGallary items={Images} />
     );
 }

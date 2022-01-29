@@ -34,12 +34,17 @@ function RightMenu(props) {
         )
     } else {
         return (
+            <>
             <Menu mode={props.mode}>
+                {
+                    user.userData && user.userData.role === "admin"
+                    ? <Menu.Item key="upload">
+                        <Link to="/manage">관리자</Link>
+                    </Menu.Item>
+                    : null
+                }
                 <Menu.Item key="history">
                     <Link to="/history">구매내역</Link>
-                </Menu.Item>
-                <Menu.Item key="upload">
-                    <Link to="/product/upload">상품 업로드</Link>
                 </Menu.Item>
                 <Menu.Item key="cart" style={{ lineHeight:'2.3rem' }} >
                     <Badge count={ user.userData && user.userData.cart.length }>
@@ -52,6 +57,7 @@ function RightMenu(props) {
                     <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
                 </Menu.Item>
             </Menu>
+            </>
         )
     }
 }

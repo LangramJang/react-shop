@@ -8,10 +8,6 @@ function HistoryPage(props) {
         margin: 3rem auto;
     `;
 
-    const Title = Styled.h1`
-        
-    `;
-
     return (
         <Container>
             

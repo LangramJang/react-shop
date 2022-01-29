@@ -8,7 +8,7 @@ import Styled from 'styled-components';
 function DetailProductPage(props) {
     
     const productId = props.match.params.productId;
-    const [Product, setProduct] = useState({})
+    const [Product, setProduct] = useState({});
 
     useEffect(() => {
         axios

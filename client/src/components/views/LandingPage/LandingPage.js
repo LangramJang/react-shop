@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Icon, Col, Card, Row, Button } from 'antd';
+import { Col, Card, Row, Button } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import ImageCarousel from '../../utils/ImageCarousel';
 import CheckBox from './Section/CheckBox';
 import {continents, price} from './Section/Datas';
 import RadioBox from './Section/RadioBox';
 import SearchFeature from './Section/SearchFeature';
+import Styled from 'styled-components';
+import { toPriceFormat } from '../../../module';
 
 function LandingPage() {
     const [Products, setProducts] = useState([]);
     const [Skip , setSkip] = useState(0);
     const [Limit] = useState(4);
     const [PostSize, setPostSize] = useState(0);
-    const [Filters, setFilters] = useState({
-        continents: [],
-        price: []
-    })
+    const [Filters, setFilters] = useState({continents: [],price: []});
     const [SearchTerm, setSearchTerm] = useState("");
 
     useEffect(() => { 
@@ -32,19 +31,16 @@ function LandingPage() {
         return (
             <Col lg={6} md={8} xs={24} key={index}>
                 <a href={`/product/${product._id}`}>
-                    <Card cover={
-                        <ImageCarousel images={product.images}  />
-                    }>
+                    <Card cover={<ImageCarousel images={product.images} /> }>
                         <Meta 
                             title={product.name}
-                            description={`$${product.price}`}
+                            description={`$ ${toPriceFormat(product.price)}`}
                         />
                     </Card>
                 </a>
             </Col>
         );
     });
-
     
     // 카드 더 보기 함수
     const loadMoreHandler = () => {
@@ -135,12 +131,21 @@ function LandingPage() {
         
         getProducts(body);
     }
-    
 
-    // 렌더링
-    return (
-        <div style={{width:'75%', margin: '3rem auto'}}>
+    const Container = Styled.div`
+        width: 75%;
+        margin: 3rem auto;
+    `;
 
+    const Search = Styled.div`
+        display: flex;
+        justify-contents: center;
+        width: 100%;
+        margin: 1rem auto;
+    `;
+
+    return ( // 렌더링
+        <Container>
             {/* Filter */}
             <Row gutter={[16, 16]}>
                 <Col lg={12} xs={24}> {/* Continents */}
@@ -158,26 +163,24 @@ function LandingPage() {
             </Row>
 
             {/* Search */}
-            <div style={{display:'flex', justifyContent:'flex-end', margin:'1rem auto'}}>
-                <SearchFeature
-                    refreshFunction={updateSearchTerm}
-                />
-            </div>
+            <Search>
+                <SearchFeature refreshFunction={updateSearchTerm} />
+            </Search>
 
             {/*  Card  */}
-            <Row gutter={[16,16]}style={{margin: '10px auto'}}>
+            <Row gutter={[16,16]} style={{margin: '10px auto'}}>
                 {renderCards}
             </Row>
-            
-            <br />
             {
                 PostSize >= Limit 
-                ? <div style={{textAlign:'center'}}><Button onClick={loadMoreHandler}>더보기</Button></div>
+                ? ( 
+                    <div style={{textAlign:'center'}}>
+                        <Button onClick={loadMoreHandler}>더보기</Button>
+                    </div>
+                )
                 : null
             }
-
-            
-        </div>
+        </Container>
     );
 }
 

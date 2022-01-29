@@ -38,7 +38,7 @@ function CartPage(props) {
         setShowTotal(true);
     };
 
-    /* 카트에서 아이템 제서 */
+    /* 카트에서 아이템 제거 */
     const removeFromCart = (productId) => {
         dispatch(removeCartItem(productId))
             .then(response => {
@@ -49,6 +49,11 @@ function CartPage(props) {
             })
         ;
     };
+
+    /* 카트 아이템 수량 변경 */
+    const changeQuantity = (productId, quantity) => {
+
+    }
 
     /* 결제 성공 후 처리 */
     const transactionSuccess = (data) => {
@@ -68,7 +73,15 @@ function CartPage(props) {
         width: 85%;
         margin: 3rem auto;
     `;
-
+    
+    const GoHome = Styled.button`
+        width: 30%;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 20px;
+        box-shadow: none;
+        background-color: #aaaaff;
+    `;
 
     return (
         <CartContainer>
@@ -78,6 +91,7 @@ function CartPage(props) {
                         <UserCardBlock 
                             products={props.user.cartDetail}
                             removeItem={removeFromCart}
+                            changeQuantity={changeQuantity}
                         />
                         <h2>Total Amount: ${Total}</h2>
                         <Paypal 
@@ -95,9 +109,9 @@ function CartPage(props) {
                             description={message.cartpage.empty}
                         />
             }
-            <button>
-                <Link to="/">홈으로 이동하기</Link>
-            </button>
+            <GoHome>
+                <Link to="/" style={{color: 'white'}}>홈으로 이동하기</Link>
+            </GoHome>
         </CartContainer>
     );
 }

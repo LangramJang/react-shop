@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Descriptions } from 'antd';
+import { Descriptions } from 'antd';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../../_actions/user_actions';
 import Styled from 'styled-components';

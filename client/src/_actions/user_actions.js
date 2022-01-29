@@ -70,6 +70,7 @@ export function addToCart(id){
     });
 }
 
+
 /* 카트 아이템 조회 */
 export function getCartItems(cartItems, userCart) {
     const request = axios.get(`/api/product/products_by_id?id=${cartItems}&type=array`)

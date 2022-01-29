@@ -14,14 +14,11 @@ function SearchFeature(props) {
     }
 
     return (
-        <div>
-            <Search 
-                placeholder="Input Search here"
-                onChange={searchHandler}
-                style={{ width: 200}}
-                value={SearchTerm}
-            />
-        </div>
+        <Search 
+            placeholder="Input Search here"
+            onChange={searchHandler}
+            value={SearchTerm}
+        />
     )
 }
 
