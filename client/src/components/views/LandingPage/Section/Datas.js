@@ -1,4 +1,4 @@
-const continents = [
+const continent = [
     {"_id": 1,"name": "Africa"},
     {"_id": 2,"name": "Europe"},
     {"_id": 3,"name": "Asia"},
@@ -19,6 +19,6 @@ const price = [
 ]
 
 export {
-    continents,
+    continent,
     price
 }

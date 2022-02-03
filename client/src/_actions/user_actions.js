@@ -7,7 +7,8 @@ import {
     ADD_TO_CART,
     GET_CART_ITEMS,
     REMOVE_CART_ITEM,
-    ON_SUCCESS_BY
+    ON_SUCCESS_BY,
+    CHANGE_CART_QUANTITY
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
 
@@ -70,9 +71,9 @@ export function addToCart(id){
     });
 }
 
-
 /* 카트 아이템 조회 */
 export function getCartItems(cartItems, userCart) {
+
     const request = axios.get(`/api/product/products_by_id?id=${cartItems}&type=array`)
         .then(response => { //
             // CartItem에 해당하는 정보들을 
@@ -81,13 +82,13 @@ export function getCartItems(cartItems, userCart) {
             userCart.forEach(cartItem => {
                 response.data.forEach((productDetail, index) => {
                     if(cartItem.id === productDetail._id) { // 받아온 ProductDetail의 id 비교
-                        response.data[index].quantity = cartItem.quantity
+                        // response.data[index].writer.cart[index].quantity = cartItem.quantity;
+                        response.data[index].quantity = cartItem.quantity;
                     }
                 });
             });
             return response.data;
         });
-
 
     return ({
         type: GET_CART_ITEMS,
@@ -117,6 +118,27 @@ export function removeCartItem(productId) {
         type: REMOVE_CART_ITEM,
         payload: request
     });
+}
+
+/* 카트 수량 변경 */
+export function changeCartQuantity(data) {
+    const request = axios.post(`/api/users/changeCartQuantity`, data)
+        .then(response => {
+            let cartId = [];
+            
+            response.data.cart.forEach(item => {
+                cartId.push(item.id);
+            });
+
+            return {
+                cartId: cartId,
+                cart: response.data.cart
+            };
+        });
+    return ({
+        type: CHANGE_CART_QUANTITY,
+        payload: request
+    })
 }
 
 /* 결제 완료 */

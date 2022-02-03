@@ -146,6 +146,37 @@ router.get('/removeFromCart', auth, (req,res) => {
     });
 });
 
+// 카트 상품 변경
+router.post('/changeCartQuantity', auth, (req,res) => {
+    // User Collection > Cart > id에 해당하는 quantity 변경
+
+    let target  = req.body.target * 1,
+        chgCart = req.body.item.writer.cart[target],
+        newCart = req.body.item.writer.cart,
+        quan    = req.body.quantity * 1;
+
+    // 수량 변경
+    chgCart.quantity = quan;
+    newCart[target] = chgCart;
+
+    User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+            $set: {cart: newCart} // 카트 변경
+        },
+        { new: true },
+        (err, user) => {
+            if(err) {
+                return res.json({ success: false, err });
+            }
+            res.status(200).json({
+                success: true,
+                cart: user.cart
+            });
+        }
+    );
+});
+
 // 결제 완료 후 처리
 router.post('/successBy', auth, (req,res) => {
     // 1-1. user Collection > history field 내에 결제정보 INSERT

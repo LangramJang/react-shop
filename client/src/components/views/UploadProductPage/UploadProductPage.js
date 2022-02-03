@@ -25,7 +25,6 @@ function UploadProductPage(props) {
     const [ price, setPrice ] = useState(0); // 가격
     const [ continent, setContinent ] = useState(1); // 대륙
     const [ images, setImages ] = useState([]); // 이미지 정보
-
     const [ loading, setLoading ] = useState(false); // FormEvent loading
 
     const nameChangeHandler = (event) => { // 이름 변경 핸들러

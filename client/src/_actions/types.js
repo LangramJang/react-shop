@@ -6,3 +6,4 @@ export const ADD_TO_CART = 'add_to_cart';
 export const GET_CART_ITEMS = 'get_cart_items';
 export const REMOVE_CART_ITEM = 'remove_cart_item';
 export const ON_SUCCESS_BY = 'on_success_by';
+export const CHANGE_CART_QUANTITY = 'change_cart_quantity';

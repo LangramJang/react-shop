@@ -24,6 +24,7 @@ function FileUpload(props) {
                     // console.log(response.data);
                     setImages([...images, response.data.filePath]);
                     props.refreshFunction([...images, response.data.filePath]);
+                    console.log(images);
                 } 
                 else {
                     alert("파일 저장에 실패하였습니다.\n다시 시도해주시기 바랍니다.");

@@ -7,7 +7,6 @@ import RightMenu from './Sections/RightMenu';
 
 function NavBar() {
     const [visible, setVisible] = useState(false);
-
     const showDrawer = () => setVisible(true);
     const onClose = () => setVisible(false);
     
@@ -57,7 +56,9 @@ function NavBar() {
     return (
         <Navbar>
             <MenuLogo>
-                <Link to='/' style={{ fontSize:'24px' }}>LOGO</Link>
+                <Link to='/' style={{ fontSize:'24px' }}>
+                    <img src="http://localhost:5000/images/logo.jpg" />
+                </Link>
             </MenuLogo>
             <MenuContainer>
                 <Left>
@@ -74,7 +75,7 @@ function NavBar() {
                     <Icon type="align-right" />
                 </MenuMobileButton>
                 <Drawer
-                    title="Basic Drawer"
+                    title="Basic Drawer" 
                     placement="right"
                     closable={false}
                     onClose={onClose}

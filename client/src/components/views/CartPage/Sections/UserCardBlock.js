@@ -1,4 +1,4 @@
-import { Card, Col, InputNumber, Row, Select } from 'antd';
+import { Card, Col, Input, InputNumber, Row, Select } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import React, { useEffect, useState } from 'react';
 import Styled from 'styled-components';
@@ -7,8 +7,9 @@ import { toPriceFormat } from '../../../../module';
 
 function UserCardBlock(props) {
     const [Quantity, setQuantity] = useState([]);
+    const [Total, setTotal] = useState(0);
 
-    const {Option} = Select;
+    const { Option } = Select;
     let quanOpt = [
         <Option key={1} value={1}>1개</Option>,
         <Option key={2} value={2}>2개</Option>,
@@ -19,17 +20,19 @@ function UserCardBlock(props) {
         <Option key={7} value={7}>7개</Option>,
         <Option key={8} value={8}>8개</Option>,
         <Option key={9} value={9}>9개</Option>
-    ]
-
-    useEffect(() => { // 최초 수량 제공을 위해 useEffect 사용
-        if(props.products) {
-            let quan = [];
-            props.products.map(e => {
+    ];
+    
+    useEffect(() => { // 카트 변경 후 데이터
+        if(props.cart) {
+            let quan = [], total = 0;
+            props.cart.map((e,i) => {
                 quan.push(e.quantity);
+                total += e.quantity * e.price;
             });
             setQuantity(quan);
+            setTotal(total);
         }
-    }, [])
+    }, [props.cart])
 
     const renderCartImage = (images) => {
         if(images.length > 0) {
@@ -61,13 +64,18 @@ function UserCardBlock(props) {
         width: 120px;
     `;
 
+    const TotalPrice = Styled.div` // 카트 총 총합
+        display: inline-block;
+        width: 100%;
+        text-align: right;
+        padding-right: 30px;
+    `;
+
     const RenderTable = () => (
         <>
-        {console.log(props.products)}
-        {
-            props.products.map((item, idx) => (
-                <Card style={{margin: '10px 0'}}>
-                <Row>
+        <Row>
+            {props.products.map((item, idx) => (
+                <Card key={item.id} style={{margin: '10px 0'}}>
                     <Col span={3}>
                         <ImageProduct 
                             src={renderCartImage(item.images)} 
@@ -77,7 +85,7 @@ function UserCardBlock(props) {
                     </Col>
                     <Col span={12}>
                         <Meta 
-                            title={item.name} 
+                            title={item.name}
                             description={item.description}
                         />
                     </Col>
@@ -91,25 +99,19 @@ function UserCardBlock(props) {
                         >
                             {quanOpt}
                         </Select>
-                        {/* <InputNumber 
-                            style={{width:'60px', fontSize:'14px'}}
-                            key={item.id}
-                            defaultValue={item.quantity}
-                            value={Quantity[idx]}
-                            onChange={(e) => {
-                                changeQuantities(e, idx);
-                            }}
-                        /> 
-                        <span style={{marginLeft: '3px'}}>개</span>
-                        */}
                     </Col>
                     <Col span={1}>
                         <RemoveButton onClick={() => props.removeItem(item._id)}>Ｘ</RemoveButton>
                     </Col>
-                </Row>
                 </Card>
             ))
-        }
+            }
+            <TotalPrice>
+                <Col>
+                    <Meta title={`Total Price: $${toPriceFormat(props.total)}`} />
+                </Col>
+            </TotalPrice>
+        </Row>
         </>
     );
 
@@ -117,12 +119,11 @@ function UserCardBlock(props) {
         let quan = [...Quantity];
         quan.splice(idx, 1, e);
         setQuantity(quan);
-
-        props.changeQuantity(e, idx);
+        props.changeQuantity(props.products[idx], idx, e);
     }
 
     return (
-        <RenderTable />
+        <RenderTable key={0} />
     );
 }
 export default UserCardBlock;

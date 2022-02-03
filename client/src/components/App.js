@@ -19,6 +19,11 @@ import Styled from 'styled-components';
 // true   only logged in user can go inside
 // false  logged in user can't go inside
 
+const Container = Styled.div`
+padding-top: 69px;
+min-height: calc(100vh - 80px);
+`;
+
 function App() {
     return (
         <Suspense fallback={(
@@ -41,11 +46,6 @@ function App() {
         </Suspense>
     );
 }
-
-const Container = Styled.div`
-    padding-top: 69px;
-    min-height: calc(100vh - 80px);
-`;
 
 export default App;
 

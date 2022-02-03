@@ -6,7 +6,8 @@ import {
     ADD_TO_CART,
     GET_CART_ITEMS,
     REMOVE_CART_ITEM,
-    ON_SUCCESS_BY
+    ON_SUCCESS_BY,
+    CHANGE_CART_QUANTITY
 } from '../_actions/types';
  
 export default function(state={},action){
@@ -29,6 +30,8 @@ export default function(state={},action){
         case ON_SUCCESS_BY:
             return {...state, cartDetail: action.payload.cartDetail,
                 userData: {...state.userData, cart: action.payload.cart}};
+        case CHANGE_CART_QUANTITY:
+            return {...state, cartData: {...state.cart} };
         default:
             return state;
     }
