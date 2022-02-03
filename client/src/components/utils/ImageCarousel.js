@@ -5,7 +5,7 @@ import Styled from 'styled-components';
 function ImageCarousel(props) {
     const images = [...props.images];
     const CardImage = Styled.img`
-        height: 150px;
+        height: auto;
         width: auto;
         border: 1px solid lightgray;
     `;

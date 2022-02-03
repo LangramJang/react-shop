@@ -17,12 +17,22 @@ function ProductInfo(props) {
     const AddToCart = Styled.button`
         background-color: red;
         color: white;
+        display: flex;
+        justify-content: center;
+        padding-top: 4px;
+        margin-top: 50px;
+        width: 120px;
+        height: 30px;
+        border: none;
+        border-radius: 15px; 
+        text-align: center;
+        margin: 80px auto;
     `;
 
     return (
         <>
             <Descriptions bordered>
-                <Descriptions.Item label="Price">$ {toPriceFormat(props.detail.price)}</Descriptions.Item>
+                <Descriptions.Item label="Price">￦ {toPriceFormat(props.detail.price)}</Descriptions.Item>
                 <Descriptions.Item label="Sold">{props.detail.sold}</Descriptions.Item>
                 <Descriptions.Item label="View">{props.detail.views}</Descriptions.Item>
                 <Descriptions.Item label="Description">{props.detail.description}</Descriptions.Item>

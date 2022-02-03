@@ -21,10 +21,8 @@ function FileUpload(props) {
         axios.post('/api/product/image', formData, config)
             .then(response => {
                 if(response.data.success) { // 데이터 전송 완료
-                    // console.log(response.data);
                     setImages([...images, response.data.filePath]);
                     props.refreshFunction([...images, response.data.filePath]);
-                    console.log(images);
                 } 
                 else {
                     alert("파일 저장에 실패하였습니다.\n다시 시도해주시기 바랍니다.");
@@ -86,7 +84,7 @@ function FileUpload(props) {
             </Dropzone>
             <ItemListDiv>
                 {images.map((image, index) => (
-                    <ItemImage 
+                    <img 
                         key={index}
                         onClick={() => deleteHandler(image)}
                         src={`http://localhost:5000/${image}`}

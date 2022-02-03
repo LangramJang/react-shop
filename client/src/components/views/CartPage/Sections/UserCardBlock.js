@@ -90,7 +90,7 @@ function UserCardBlock(props) {
                         />
                     </Col>
                     <Col span={8}>
-                        <PriceText>$ {toPriceFormat(item.price * Quantity[idx])}</PriceText>
+                        <PriceText>￦ {toPriceFormat(item.price * Quantity[idx])}</PriceText>
                         <Select
                             key={item.id}
                             style={{width:'80px'}}

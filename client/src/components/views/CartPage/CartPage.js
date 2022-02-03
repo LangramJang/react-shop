@@ -59,7 +59,6 @@ function CartPage(props) {
                 setCart(response.payload.cart);
                 dispatch(getCartItems(response.payload.cartId, response.payload.cart))
                     .then(res => {
-                        console.log(res.payload);
                         getTotalPrice(res.payload);
                     });
             }

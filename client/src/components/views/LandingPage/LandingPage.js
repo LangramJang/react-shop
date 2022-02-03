@@ -4,19 +4,20 @@ import { Col, Card, Row, Button } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import ImageCarousel from '../../utils/ImageCarousel';
 import CheckBox from './Section/CheckBox';
-import {continent, price} from './Section/Datas';
+import {connects, contacts, price, switches} from '../../../data/Datas';
 import RadioBox from './Section/RadioBox';
 import SearchFeature from './Section/SearchFeature';
 import Styled from 'styled-components';
 import { toPriceFormat } from '../../../module';
 import { Link } from 'react-router-dom';
+import { connect } from 'mongoose';
 
 function LandingPage() {
     const [Products, setProducts] = useState([]);
     const [Skip , setSkip] = useState(0);
     const [Limit] = useState(4);
     const [PostSize, setPostSize] = useState(0);
-    const [Filters, setFilters] = useState({continent: [], price: []});
+    const [Filters, setFilters] = useState({switches:[], connects:[], contacts:[], price:[]});
     const [SearchTerm, setSearchTerm] = useState("");
     // const [Index, setIndex] = useState({continent: [...continent.map(e => e._id)], price: 0});
 
@@ -36,7 +37,7 @@ function LandingPage() {
                     <Card cover={<ImageCarousel images={product.images} /> }>
                         <Meta 
                             title={product.name}
-                            description={`$ ${toPriceFormat(product.price)}`}
+                            description={`￦ ${toPriceFormat(product.price)}`}
                         />
                     </Card>
                 </Link>
@@ -59,12 +60,12 @@ function LandingPage() {
 
     // 상품 목록을 가져오는 함수
     const getProducts = (body) => { 
-        console.log("getProducts")
-
+        console.log("start getProducts: ", body)
         axios
         .post('/api/product/products', body) // 상품 목록 획득
         .then(response => {
             if(response.data.success) {
+                console.log("/api/product/products > body:", response.data)
                 if(body.loadMore) {
                     setProducts([...Products, ...response.data.productInfo]);
                 }
@@ -82,8 +83,6 @@ function LandingPage() {
 
     // 필터링을 적용하여 아이템들을 가져옴
     const showFilteredResults = (filters) => {
-        console.log("showFilteredResults")
-
         let body = {
             skip: 0,
             limit: Limit,
@@ -96,8 +95,6 @@ function LandingPage() {
 
     // 가격 필터링 핸들러
     const handlePrice = (value) => {
-        console.log("handlePrice")
-
         const data = price;
         let priceArray = [];
 
@@ -112,18 +109,16 @@ function LandingPage() {
     // 필터링 핸들러
     const handleFilters = (filters, category) => { // category: continent | price
  
-        // console.log("[handleFilters] filter: ", filters,", category: ", category)
+        console.log("[handleFilters] filter: ", filters,", category: ", category)
         // let datas = {
         //     continent: category==="continent" ? filters.continent : Index.continent,
         //     price: category="price" ? filters : Index.price
         // }
         // setIndex(datas);
-        // console.log("DATAS: ", Index);
 
         const newFilters = { ...Filters };
         newFilters[category] = filters; // 지역 필터(체크박스)
         
-        // console.log(`[${category}] ${filters}`);
         if(category === "price") { // 가격 필터(라디오박스)
             let priceValues = handlePrice(filters); // [N ~ N]
             newFilters[category] = priceValues;
@@ -133,11 +128,8 @@ function LandingPage() {
     }
 
     // 검색기능 핸들러
-    const updateSearchTerm = (newSearchTerm) => {
-        console.log("updateSearchTerm")
-
+    const updateSearchTerm = (newSearchTerm) => { 
         setSearchTerm(newSearchTerm);
-
         let body = {
             skip: 0,
             limit: Limit,
@@ -166,20 +158,53 @@ function LandingPage() {
         <Container>
             {/* Filter */}
             <Row gutter={[16, 16]}>
-                <Col lg={12} xs={24}> {/* continent */}
+
+                <Col lg={6} md={12} xs={24}>
+                    <CheckBox 
+                        title="스위치"
+                        list={switches}
+                        handleFilters={filters => handleFilters(filters, "switches")} 
+                    />
+                </Col>
+                
+                <Col lg={6} md={12} xs={24}>
+                    <CheckBox 
+                        title="연결방식"
+                        list={connects}
+                        handleFilters={filters => handleFilters(filters, "connect")} 
+                    />
+                </Col>
+                
+                <Col lg={6} md={12} xs={24}>
+                    <RadioBox 
+                        title="접점방식"
+                        list={contacts}
+                        handleFilters={filters => handleFilters(filters, "contact")} 
+                    />
+                </Col>
+                
+                <Col lg={6} md={12} xs={24}>
+                    <RadioBox
+                        title="가격"
+                        list={price}
+                        handleFilters={filters => handleFilters(filters, "price")} 
+                    />
+                </Col>
+                
+                {/* <Col lg={12} xs={24}>
                     <CheckBox 
                         list={continent} 
                         // checked={Index.continent}
                         handleFilters={filters => handleFilters(filters, "continent")} 
                     />
                 </Col>
-                <Col lg={12} xs={24}> {/* Price */}
+                <Col lg={12} xs={24}> 
                     <RadioBox 
                         list={price} 
                         // value={Index.price}
                         handleFilters={filters => handleFilters(filters, "price")} 
                     />
-                </Col>
+                </Col> */}
             </Row>
 
             <Search> {/* Search */}

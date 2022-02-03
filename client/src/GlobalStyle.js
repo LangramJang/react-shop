@@ -36,18 +36,18 @@ const GlobalStyle = createGlobalStyle`
         margin-top: -12px;
     }
   
-    button {
-        display: flex;
-        justify-content: center;
-        padding-top: 4px;
-        margin-top: 50px;
-        width: 120px;
-        height: 30px;
-        border: none;
-        border-radius: 15px; 
-        text-align: center;
-        margin: 80px auto;
-    }
+    // button {
+    //     display: flex;
+    //     justify-content: center;
+    //     padding-top: 4px;
+    //     margin-top: 50px;
+    //     width: 120px;
+    //     height: 30px;
+    //     border: none;
+    //     border-radius: 15px; 
+    //     text-align: center;
+    //     margin: 80px auto;
+    // }
 `;
 
 export default GlobalStyle;

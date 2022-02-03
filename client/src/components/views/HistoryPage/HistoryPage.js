@@ -24,10 +24,10 @@ function HistoryPage(props) {
         font-size: 20px;
     `;
 
-    const ImageProduct = Styled.img`
-        display: inline;
-        width: 50px;
-    `;
+    // const ImageProduct = Styled.img`
+    //     display: inline;
+    //     width: 50px;
+    // `;
     
     const renderImage = (images) => {
         if(images.length > 0) {

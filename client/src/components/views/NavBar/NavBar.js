@@ -44,9 +44,15 @@ function NavBar() {
         width: 68px;
         height: 32px;
         padding: 6px;
+        padding-top: 4px;
         margin-top: 8px;
         display: none !important; /* use of important to overwrite ant-btn */
         // background: #3e91f7;
+        display: flex;
+        border: none;
+        border-radius: 15px; 
+        text-align: center;
+        justify-content: center;
 
         @media (max-width: 767px) {
             display: inline-block !important;
