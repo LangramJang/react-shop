@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Collapse, Checkbox } from 'antd';
-import styled from 'styled-components';
 
 const { Panel } = Collapse;
 

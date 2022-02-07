@@ -63,7 +63,10 @@ function NavBar() {
         <Navbar>
             <MenuLogo>
                 <Link to='/' style={{ fontSize:'24px' }}>
-                    <img src="http://localhost:5000/images/logo.jpg" />
+                    <img 
+                        src="http://localhost:5000/images/logo.jpg" 
+                        alt="logo"    
+                    />
                 </Link>
             </MenuLogo>
             <MenuContainer>

@@ -1,7 +1,5 @@
 import { Card, Col } from 'antd';
-import Meta from 'antd/lib/card/Meta';
-import Axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Styled from 'styled-components';
 import { millisToDate, toPriceFormat } from '../../../module';
  
@@ -23,11 +21,6 @@ function HistoryPage(props) {
         margin-bottom: 15px;
         font-size: 20px;
     `;
-
-    // const ImageProduct = Styled.img`
-    //     display: inline;
-    //     width: 50px;
-    // `;
     
     const renderImage = (images) => {
         if(images.length > 0) {
@@ -77,32 +70,6 @@ function HistoryPage(props) {
                     </Col>
                 </Card>
             ))}
-
-            {/* <div style={{ textAlign: 'center' }}>
-                <h1>History</h1>
-            </div> */}
-            {/* <table>
-                <thead>
-                    <tr>
-                        <th>Payment ID</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Date of Purchase</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.user.userData 
-                        && props.user.userData.history.map(item => (
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>{item.price}</td>
-                                <td>{item.quantity}</td>
-                                <td>{item.dateOfPurchase}</td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table> */}
         </Container>
     )
 }

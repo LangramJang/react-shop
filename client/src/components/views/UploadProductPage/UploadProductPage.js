@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Typography, Button, Form, Input, Select, Checkbox } from 'antd';
-import { continent, switches, connects, contacts } from '../../../data/Datas'
+import { Typography, Button, Form, Input, Select } from 'antd';
+import { switches, connects, contacts } from '../../../data/Datas'
 import FileUpload from '../../utils/FileUpload';
 import Axios from 'axios';
-import styled from 'styled-components';
 
 const { Title }    = Typography;
 const { Option }   = Select;

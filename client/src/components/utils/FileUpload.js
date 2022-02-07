@@ -5,7 +5,6 @@ import axios from 'axios';
 import Styled from 'styled-components';
 
 function FileUpload(props) {
-    
     const [ images, setImages ] = useState([]);
 
     // 파일 드랍 OR 선택 시 이벤트 핸들러
@@ -63,13 +62,6 @@ function FileUpload(props) {
         overflow-x: scroll;
         overflow-y: hidden;
         border: 1px solid lightgray;
-    `
-
-    const ItemImage = Styled.div`
-        min-width: 300px;
-        width: 300px;
-        height: 240px;
-        margin: 0 1px;
     `;
 
     return (
@@ -85,6 +77,7 @@ function FileUpload(props) {
             <ItemListDiv>
                 {images.map((image, index) => (
                     <img 
+                        alt={image}
                         key={index}
                         onClick={() => deleteHandler(image)}
                         src={`http://localhost:5000/${image}`}

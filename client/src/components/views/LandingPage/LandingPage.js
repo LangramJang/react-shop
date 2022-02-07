@@ -60,12 +60,10 @@ function LandingPage() {
 
     // 상품 목록을 가져오는 함수
     const getProducts = (body) => { 
-        console.log("start getProducts: ", body)
         axios
         .post('/api/product/products', body) // 상품 목록 획득
         .then(response => {
             if(response.data.success) {
-                console.log("/api/product/products > body:", response.data)
                 if(body.loadMore) {
                     setProducts([...Products, ...response.data.productInfo]);
                 }

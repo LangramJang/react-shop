@@ -1,4 +1,4 @@
-import { Card, Col, Input, InputNumber, Row, Select } from 'antd';
+import { Card, Col, Row, Select } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import React, { useEffect, useState } from 'react';
 import Styled from 'styled-components';
@@ -7,7 +7,6 @@ import { toPriceFormat } from '../../../../module';
 
 function UserCardBlock(props) {
     const [Quantity, setQuantity] = useState([]);
-    const [Total, setTotal] = useState(0);
 
     const { Option } = Select;
     let quanOpt = [
@@ -24,13 +23,11 @@ function UserCardBlock(props) {
     
     useEffect(() => { // 카트 변경 후 데이터
         if(props.cart) {
-            let quan = [], total = 0;
-            props.cart.map((e,i) => {
+            let quan = [];
+            props.cart.map(e => {
                 quan.push(e.quantity);
-                total += e.quantity * e.price;
             });
             setQuantity(quan);
-            setTotal(total);
         }
     }, [props.cart])
 

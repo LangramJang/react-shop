@@ -29,7 +29,7 @@ function CartPage(props) {
         }
     }, [props.user.userData]);
 
-    const getTotalPrice = (cartDetail) => {
+    const getTotalPrice = (cartDetail) => { // 
         let total = 0;
         cartDetail.map((item, idx) => total += parseInt(item.price, 10) * item.quantity);
         setTotal(total);
