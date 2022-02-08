@@ -7,8 +7,8 @@ import { toPriceFormat } from '../../../../module';
 
 function UserCardBlock(props) {
     const [Quantity, setQuantity] = useState([]);
-
     const { Option } = Select;
+    
     let quanOpt = [
         <Option key={1} value={1}>1개</Option>,
         <Option key={2} value={2}>2개</Option>,
@@ -20,7 +20,7 @@ function UserCardBlock(props) {
         <Option key={8} value={8}>8개</Option>,
         <Option key={9} value={9}>9개</Option>
     ];
-    
+
     useEffect(() => { // 카트 변경 후 데이터
         if(props.cart) {
             let quan = [];

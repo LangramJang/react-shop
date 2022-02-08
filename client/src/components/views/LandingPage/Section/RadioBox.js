@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Collapse, Radio } from 'antd';
-
 const { Panel } = Collapse;
 
 function RadioBox(props) {
     const [Value, setValue] = useState(0);
+
+    useEffect(() => {
+        setValue(props.index[0]);
+    }, []);
 
     // 라디오박스 렌더링
     const renderRadioboxLists = () => (
@@ -15,7 +18,7 @@ function RadioBox(props) {
 
     const handleChange = (event) => {
         setValue(event.target.value);
-        props.handleFilters(event.target.value);
+        props.handleFilters([event.target.value]);
     }
 
     return (

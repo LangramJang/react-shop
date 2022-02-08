@@ -4,16 +4,15 @@ import Styled from 'styled-components';
 
 function ImageCarousel(props) {
     const images = [...props.images];
-    const CardImage = Styled.img`
-        height: auto;
-        width: auto;
-        border: 1px solid lightgray;
-    `;
 
     return (
-        <Carousel autoplay style={{padding: '10px' }}>
+        <Carousel autoplay alt={props.name} style={{  }}>
             {images.map((image,index) => (
-                <CardImage key={index} src={`http://localhost:5000/${image}`} />
+                <img
+                    key={index}
+                    src={`http://localhost:5000/${image}`}
+                    style={{ border:'1px solid lightgray'}}
+                />
             ))}
         </Carousel>
     )

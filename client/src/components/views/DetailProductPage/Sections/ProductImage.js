@@ -18,8 +18,6 @@ function ProductImage(props) {
                 key.push(idx);
             });
             setImages(images);
-
-            console.log("Images: ", Images);
         }
     }, [props.detail]);
 

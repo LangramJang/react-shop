@@ -10,23 +10,24 @@ import SearchFeature from './Section/SearchFeature';
 import Styled from 'styled-components';
 import { toPriceFormat } from '../../../module';
 import { Link } from 'react-router-dom';
-import { connect } from 'mongoose';
 
 function LandingPage() {
+    const [Index, setIndex] = useState({});
     const [Products, setProducts] = useState([]);
     const [Skip , setSkip] = useState(0);
     const [Limit] = useState(4);
     const [PostSize, setPostSize] = useState(0);
-    const [Filters, setFilters] = useState({switches:[], connects:[], contacts:[], price:[]});
+    const [Filters, setFilters] = useState({switches:[], connect:[], contact:[1], price:[]});
     const [SearchTerm, setSearchTerm] = useState("");
-    // const [Index, setIndex] = useState({continent: [...continent.map(e => e._id)], price: 0});
-
+    const [PriceIndex, setPriceIndex] = useState([0]);
+    
     useEffect(() => { 
         let body = { 
             skip: Skip,
             limit: Limit
         };
-        getProducts(body); 
+        getProducts(body);
+        setIndex(Filters)
     }, []);
 
     // 카드 랜더링 함수
@@ -59,7 +60,7 @@ function LandingPage() {
     };
 
     // 상품 목록을 가져오는 함수
-    const getProducts = (body) => { 
+    const getProducts = (body) => {
         axios
         .post('/api/product/products', body) // 상품 목록 획득
         .then(response => {
@@ -87,6 +88,7 @@ function LandingPage() {
             filters: filters,
             searchTerm: SearchTerm
         };
+
         getProducts(body);
         setSkip(0);
     };
@@ -106,21 +108,24 @@ function LandingPage() {
 
     // 필터링 핸들러
     const handleFilters = (filters, category) => { // category: continent | price
- 
-        console.log("[handleFilters] filter: ", filters,", category: ", category)
-        // let datas = {
-        //     continent: category==="continent" ? filters.continent : Index.continent,
-        //     price: category="price" ? filters : Index.price
-        // }
-        // setIndex(datas);
+        let datas = {
+            switches: category==="switches" ? filters : Index.switches,
+            connect : category==="connect"  ? filters : Index.connect,
+            contact : category==="contact"  ? filters : Index.contact,
+            price: category==="price" ? filters : Index.price
+        };
+        setIndex(datas);
 
         const newFilters = { ...Filters };
-        newFilters[category] = filters; // 지역 필터(체크박스)
-        
+        newFilters[category] = filters; 
+
         if(category === "price") { // 가격 필터(라디오박스)
             let priceValues = handlePrice(filters); // [N ~ N]
             newFilters[category] = priceValues;
+            setPriceIndex(filters);
         }
+
+
         showFilteredResults(newFilters); // 변경된 필터 값을 가져옴
         setFilters(newFilters);
     }
@@ -161,7 +166,8 @@ function LandingPage() {
                     <CheckBox 
                         title="스위치"
                         list={switches}
-                        handleFilters={filters => handleFilters(filters, "switches")} 
+                        checked={Filters.switches}
+                        handleFilters={filters => handleFilters(filters, "switches")}
                     />
                 </Col>
                 
@@ -169,6 +175,7 @@ function LandingPage() {
                     <CheckBox 
                         title="연결방식"
                         list={connects}
+                        checked={Filters.connect}
                         handleFilters={filters => handleFilters(filters, "connect")} 
                     />
                 </Col>
@@ -177,6 +184,7 @@ function LandingPage() {
                     <RadioBox 
                         title="접점방식"
                         list={contacts}
+                        index={Filters.contact}
                         handleFilters={filters => handleFilters(filters, "contact")} 
                     />
                 </Col>
@@ -185,24 +193,10 @@ function LandingPage() {
                     <RadioBox
                         title="가격"
                         list={price}
+                        index={PriceIndex}
                         handleFilters={filters => handleFilters(filters, "price")} 
                     />
                 </Col>
-                
-                {/* <Col lg={12} xs={24}>
-                    <CheckBox 
-                        list={continent} 
-                        // checked={Index.continent}
-                        handleFilters={filters => handleFilters(filters, "continent")} 
-                    />
-                </Col>
-                <Col lg={12} xs={24}> 
-                    <RadioBox 
-                        list={price} 
-                        // value={Index.price}
-                        handleFilters={filters => handleFilters(filters, "price")} 
-                    />
-                </Col> */}
             </Row>
 
             <Search> {/* Search */}
